@@ -79,12 +79,7 @@ class DatabaseEngine(ABC, Serializable):
         return result.string, params
 
     @abstractmethod
-    def execute(
-        self,
-        query,
-        cursor: Any | None = None,
-        conn: Any | None = None,
-    ) -> Iterator[tuple[Any, ...]]: ...
+    def execute(self, query) -> Iterator[tuple[Any, ...]]: ...
 
     def get_table(self, name: str) -> "Table":
         """Get a table by name, raising TableMissingError if not found."""
@@ -100,9 +95,7 @@ class DatabaseEngine(ABC, Serializable):
         return table
 
     @abstractmethod
-    def executemany(
-        self, query, params, cursor: Any | None = None
-    ) -> Iterator[tuple[Any, ...]]: ...
+    def executemany(self, query, params) -> None: ...
 
     @abstractmethod
     def execute_str(self, sql: str, parameters=None) -> Iterator[tuple[Any, ...]]: ...
